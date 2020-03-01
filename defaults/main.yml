@@ -13,7 +13,7 @@ grafana_instance: "{{ ansible_fqdn | default(ansible_host) | default(inventory_h
 grafana_logs_dir: "/var/log/grafana"
 grafana_data_dir: "/var/lib/grafana"
 
-grafana_address: "0.0.0.0"
+grafana_address: "localhost"
 grafana_port: 3000
 # To enable the use of ports below 1024 for unprivileged processes linux needs to set CAP_NET_BIND_SERVICE.
 # This has some security implications, and should be a conscious choice.
@@ -42,7 +42,7 @@ grafana_server:
 # Security
 grafana_security:
   admin_user: admin
-  admin_password: ""
+  admin_password: password 
 #  secret_key: ""
 #  login_remember_days: 7
 #  cookie_username: grafana_user
@@ -218,24 +218,24 @@ grafana_alert_notifications: []
 #       addresses: "example@example.com"
 
 # Datasources to configure
-grafana_datasources: []
-#  - name: "Prometheus"
-#    type: "prometheus"
-#    access: "proxy"
-#    url: "http://prometheus.mydomain"
-#    basicAuth: true
-#    basicAuthUser: "admin"
-#    basicAuthPassword: "password"
-#    isDefault: true
-#    jsonData:
-#      tlsAuth: false
-#      tlsAuthWithCACert: false
-#      tlsSkipVerify: true
+grafana_datasources: 
+  - name: "Prometheus"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://prometheus.mydomain"
+    basicAuth: true
+    basicAuthUser: "admin"
+    basicAuthPassword: "password"
+    isDefault: true
+    jsonData:
+      tlsAuth: false
+      tlsAuthWithCACert: false
+      tlsSkipVerify: true
 
 # API keys to configure
-grafana_api_keys: []
-#  - name: "admin"
-#    role: "Admin"
+grafana_api_keys: 
+  - name: "admin"
+    role: "Admin"
 #  - name: "viewer"
 #    role: "Viewer"
 #  - name: "editor"

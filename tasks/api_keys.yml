@@ -4,7 +4,7 @@
   file:
     path: "{{ grafana_api_keys_dir }}/{{ inventory_hostname }}"
     state: directory
-  delegate_to: localhost
+    #  delegate_to: localhost
 
 - name: Check api key list
   uri:
@@ -13,7 +13,7 @@
     password: "{{ grafana_security.admin_password }}"
     force_basic_auth: true
     return_content: true
-  no_log: true
+    #  no_log: true
   register: existing_api_keys
 
 - name: Create grafana api keys
@@ -38,4 +38,12 @@
     backup: false
   when: item['json'] is defined
   with_items: "{{ new_api_keys['results'] }}"
-  delegate_to: localhost
+  #  delegate_to: localhost
+
+- name: Getting the api key in a variable
+  shell: cat /root/grafana/keys/18.205.185.152/admin.key
+  register: result
+
+- set_fact:
+    usable_api_key : "{{ result.stdout }}"
+
